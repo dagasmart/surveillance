@@ -1,0 +1,36 @@
+{
+    "name": "dagasmart/surveillance",
+    "alias": "智能监控",
+    "description": "电视广播或大型活动直播的监控场景",
+    "type": "library",
+    "version": "1.0.0",
+    "keywords": ["bizadmin", "extension"],
+    "homepage": "https://github.com/dagasmart/surveillance",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Administrator",
+            "email": "dagasmart@163.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "dagasmart/bizadmin": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "DagaSmart\\Surveillance\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "bizadmin": "DagaSmart\\Surveillance\\SurveillanceServiceProvider",
+        "laravel": {
+            "providers": [
+                "DagaSmart\\Surveillance\\SurveillanceServiceProvider"
+            ]
+        }
+    }
+}
