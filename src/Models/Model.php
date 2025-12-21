@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Model extends BaseModel
 {
 
-    const string schema = 'school'; //连接的数据库名
+    const string schema = 'biz'; //连接的数据库名
 
     protected $connection = self::schema; // 使用school数据库连接
 
