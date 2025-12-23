@@ -20,7 +20,7 @@ Route::group([
     // 监控设备
     $router->resource('surveillance/device', Controllers\SurveillanceDeviceController::class);
     // 推流转码
-    $router->resource('surveillance/publish', Controllers\SurveillanceStreamController::class);
+    $router->resource('surveillance/stream', Controllers\SurveillanceStreamController::class);
     // 直播展板
     $router->get('surveillance/screen', [Controllers\SurveillanceController::class, 'screen']);
 

@@ -4,13 +4,13 @@ namespace DagaSmart\Surveillance\Http\Controllers;
 
 use DagaSmart\BizAdmin\Renderers\Form;
 use DagaSmart\BizAdmin\Renderers\Page;
-use DagaSmart\Surveillance\Services\SurveillanceService;
+use DagaSmart\Surveillance\Services\SurveillanceStreamService;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\JsonResponse;
 
 class SurveillanceStreamController extends AdminController
 {
-    protected string $serviceName = SurveillanceService::class;
+    protected string $serviceName = SurveillanceStreamService::class;
 
     public function list(): Page
     {
