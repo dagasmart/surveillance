@@ -1,6 +1,7 @@
 <?php
 
 use DagaSmart\Surveillance\Http\Controllers;
+use DagaSmart\Surveillance\Http\Middleware;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use DagaSmart\BizAdmin\Middleware\Permission;
@@ -14,10 +15,13 @@ Route::get('surveillance', [Controllers\SurveillanceController::class, 'index'])
 
 Route::group([
     'prefix' => 'biz',
+    'middleware' => [Middleware\CheckPackageMiddleware::class],
 ], function (Router $router) {
-    // 转码直播
-    $router->resource('surveillance/index', Controllers\SurveillanceController::class);
-    // 直播大屏
+    // 监控设备
+    $router->resource('surveillance/device', Controllers\SurveillanceDeviceController::class);
+    // 推流转码
+    $router->resource('surveillance/publish', Controllers\SurveillanceStreamController::class);
+    // 直播展板
     $router->get('surveillance/screen', [Controllers\SurveillanceController::class, 'screen']);
 
 });

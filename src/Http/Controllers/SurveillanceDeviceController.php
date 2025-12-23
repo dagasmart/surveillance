@@ -8,7 +8,7 @@ use DagaSmart\Surveillance\Services\SurveillanceService;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\JsonResponse;
 
-class SurveillanceController extends AdminController
+class SurveillanceDeviceController extends AdminController
 {
     protected string $serviceName = SurveillanceService::class;
 
