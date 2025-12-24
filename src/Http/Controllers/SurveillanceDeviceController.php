@@ -40,7 +40,7 @@ class SurveillanceDeviceController extends AdminController
                         'options' => $this->service->getEnterpriseAll(),
                     ])
                     ->width(200),
-                amis()->TableColumn('rel.facility.level_name', '安装位置')
+                amis()->TableColumn('rel.facility.level_name', '主体位置')
                     ->searchable([
                         'name' => 'facility_id',
                         'type' => 'tree-select',
@@ -87,7 +87,7 @@ class SurveillanceDeviceController extends AdminController
                 ->searchable()
                 ->clearable()
                 ->required(),
-            amis()->TreeSelectControl('facility_id', '设施主体')
+            amis()->TreeSelectControl('facility_id', '主体位置')
                 ->source(admin_url('biz/enterprise/${enterprise_id||0}/facility/options'))
                 ->options($this->service->options())
                 ->value('${rel.facility.id}')
