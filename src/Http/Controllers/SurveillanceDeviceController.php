@@ -55,8 +55,10 @@ class SurveillanceDeviceController extends AdminController
                         'type' => 'input-text',
                     ])
                     ->width(150),
-                amis()->TableColumn('state', '状态')
-                    ->set('type','status'),
+                amis()->TableColumn('state','状态')
+                    ->set('type','switch')
+                    ->set('onText', '上线')
+                    ->set('offText', '下线'),
                 amis()->TableColumn('sort','排序'),
                 amis()->TableColumn('updated_at', '更新时间')
                     ->type('datetime')
@@ -64,7 +66,7 @@ class SurveillanceDeviceController extends AdminController
                     ->width(150),
                 $this->rowActions([
                     amis()->Operation()->label(admin_trans('admin.actions'))->buttons([
-                        $this->rowShowButton(true),
+                        $this->rowShowButton(true,250),
                         $this->rowSetAction('drawer', 'auto'),
                         $this->rowEditButton(true,250),
                         $this->rowDeleteButton(),
@@ -123,8 +125,8 @@ class SurveillanceDeviceController extends AdminController
                 ->size('xs')
                 ->value(10),
             amis()->SwitchControl('state','状态')
-                ->onText('开启')
-                ->offText('禁用')
+                ->onText('上线')
+                ->offText('下线')
                 ->value(true),
         ]);
     }
@@ -169,6 +171,11 @@ class SurveillanceDeviceController extends AdminController
                 ->required(),
             amis()->TextareaControl('device_desc', '设备描述')
                 ->clearable(),
+            amis()->SwitchControl('online', '设备状态')
+                ->onText('在线')
+                ->offText('离线')
+                ->disabled()
+                ->static(false),
             amis()->NumberControl('sort', '排序')
                 ->min(0)
                 ->max(100)

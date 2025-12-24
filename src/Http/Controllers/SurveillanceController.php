@@ -97,33 +97,12 @@ class SurveillanceController extends AdminController
             amis()->TextControl('state', '状态：0禁用，1启用')->static(),
             amis()->TextControl('hot', '热点：1是， 0否')->static(),
             amis()->TextControl('top', '置顶：1是，0否')->static(),
-            amis()->TextControl('online', '1在线，0离线')->static(),
+            amis()->TextControl('online', '设备状态')
+                ->onText('在线')
+                ->offText('离线')
+                ->static(),
             amis()->TextControl('created_at', admin_trans('admin.created_at'))->static(),
             amis()->TextControl('updated_at', admin_trans('admin.updated_at'))->static(),
-
-//            amis()->TextControl('id', 'ID')->static(),
-//            amis()->TextControl('title', '名称')->static(),
-//            amis()->TextControl('agree', '协议（源）')->static(),
-////			amis()->TextControl('uuid', '账号')->static(),
-////			amis()->TextControl('pass', '密码')->static(),
-////			amis()->TextControl('ip', 'IP')->static(),
-////			amis()->TextControl('iport', '端口')->static(),
-////			amis()->TextControl('path', '路径')->static(),
-////			amis()->TextControl('channel', '通道')->static(),
-////			amis()->TextControl('subtype', '子通道')->static(),
-//            amis()->TextControl('remote', '推流完整路径（源）')->static(),
-//            amis()->TextControl('name', '流名称')->static(),
-//            amis()->TextControl('url', '播放地址')->static(),
-////			amis()->TextControl('sip', '分流内网IP')->static(),
-////			amis()->TextControl('port', '分流公网端口')->static(),
-//            amis()->TextControl('piont', '经纬度')->static(),
-//            amis()->SwitchControl('status', '状态'),
-//            amis()->SwitchControl('hot', '热点'),
-//            amis()->SwitchControl('top', '置顶'),
-//            amis()->SwitchControl('type', '类别'),
-//            amis()->SwitchControl('stat', '在线'),
-//            amis()->TextControl('created_at', __('admin.created_at'))->static(),
-//            amis()->TextControl('updated_at', __('admin.updated_at'))->static()
         ])->disabled();
     }
 

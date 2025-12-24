@@ -7,7 +7,7 @@ use DagaSmart\Organization\Services\EnterpriseService;
 use DagaSmart\Surveillance\Models\SurveillanceDevice;
 
 /**
- * 转码直播表
+ * 监控设备-服务类
  *
  * @method SurveillanceDevice getModel()
  * @method SurveillanceDevice|\Illuminate\Database\Query\Builder query()
@@ -40,6 +40,17 @@ class SurveillanceDeviceService extends AdminService
     {
         parent::searchable($query);
         $query->where(['device_type' => 'surveillance']); //只查监控设备
+    }
+
+    /**
+     * 保存前
+     * @param $data
+     * @param $primaryKey
+     * @return void
+     */
+    public function saving(&$data, $primaryKey = null): void
+    {
+        $data['device_type'] = 'surveillance'; // 监控
     }
 
     /**
