@@ -63,8 +63,8 @@ class SurveillanceStreamController extends AdminController
                 ->required(),
             amis()->TreeSelectControl('facility_id', '主体位置')
                 ->source(admin_url('biz/enterprise/${enterprise_id||0}/facility/options'))
-                ->options($this->service->options())
-                ->value('${rel.facility.id}')
+                ->options($this->service->facilityOptions())
+                ->value('${rel.facility_id}')
                 ->disabledOn('${!enterprise_id}')
                 ->onlyLeaf(false)
                 ->searchable()
@@ -72,8 +72,8 @@ class SurveillanceStreamController extends AdminController
                 ->required(),
             amis()->TreeSelectControl('device_id', '监控设备')
                 ->source(admin_url('biz/enterprise/${enterprise_id||0}/facility/${facility_id||0}/device/surveillance/options'))
-                ->options([])
-                ->value('${rel.device.id}')
+                ->options($this->service->deviceOptions())
+                ->value('${rel.device_id}')
                 ->disabledOn('${!facility_id}')
                 ->onlyLeaf(false)
                 ->searchable()
@@ -101,17 +101,18 @@ class SurveillanceStreamController extends AdminController
                 amis()->Status()
                     ->source([
                         '0' => [
-                            'label' => '离线维护',
+                            'label' => '已离线',
                             'icon' => 'fail',
                             'color' => 'red'
                         ],
                         '1' => [
-                            'label' => '在线运行',
+                            'label' => '运行中',
                             'icon' => 'success',
                             'color' => 'var(--colors-brand-5)'
                         ]
                     ])->value(1)
-            ]),
+            ])
+            ->visible(!!$isEdit),
         ]);
     }
 

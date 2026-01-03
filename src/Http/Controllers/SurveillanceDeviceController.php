@@ -92,7 +92,7 @@ class SurveillanceDeviceController extends AdminController
             amis()->TreeSelectControl('facility_id', '主体位置')
                 ->source(admin_url('biz/enterprise/${enterprise_id||0}/facility/options'))
                 ->options($this->service->options())
-                ->value('${rel.facility.id}')
+                ->value('${rel.facility_id}')
                 ->disabledOn('${!enterprise_id}')
                 ->onlyLeaf(false)
                 ->searchable()

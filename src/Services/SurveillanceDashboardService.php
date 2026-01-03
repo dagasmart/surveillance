@@ -11,7 +11,7 @@ use DagaSmart\Surveillance\Models\SurveillanceStream;
  * @method SurveillanceStream getModel()
  * @method SurveillanceStream|\Illuminate\Database\Query\Builder query()
  */
-class SurveillanceStreamService extends AdminService
+class SurveillanceDashboardService extends AdminService
 {
     protected string $modelName = SurveillanceStream::class;
 
