@@ -4,6 +4,7 @@ namespace DagaSmart\Surveillance\Http\Controllers;
 
 use DagaSmart\BizAdmin\Renderers\Form;
 use DagaSmart\BizAdmin\Renderers\Page;
+use DagaSmart\BizAdmin\Renderers\Panel;
 use DagaSmart\BizAdmin\Support\Cores\AdminPipeline;
 use DagaSmart\Organization\Enums\Enum;
 use DagaSmart\Surveillance\Services\SurveillanceDeviceService;
@@ -77,7 +78,15 @@ class SurveillanceDeviceController extends AdminController
                 ->set('width',180)
             ]);
 
-        return $this->baseList($crud);
+        return amis()->Page()->body([
+            amis()->Grid()->columns([
+                $this->baseList($crud)->set('md', 9),
+                amis()->Flex()->items([
+                    $this->barChart(),
+                    $this->barChart(),
+                ])->direction('column')->set('md', 3),
+            ]),
+        ]);
     }
 
     public function form($isEdit = false): Form
@@ -272,6 +281,54 @@ class SurveillanceDeviceController extends AdminController
                 ])
             ]),
 
+        ]);
+    }
+
+
+    public function barChart(): Panel
+    {
+        return amis()->Panel()->className('w-full')->body([
+            amis()->Chart()->height(250)->config([
+                'backgroundColor' => '',
+                'title'           => [
+                    'text' => '任务汇总统计',
+                    'subtext' => '统计图'
+                ],
+                'tooltip'         => ['trigger' => 'axis'],
+                'legend'          => ['data' => ['最高气温', '最低气温']],
+                'xAxis'           => [
+                    'type'        => 'category',
+                    'boundaryGap' => false,
+                    'data'        => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                ],
+                'yAxis'           => ['type' => 'value'],
+                'grid'            => ['left' => '7%', 'right' => '3%', 'top' => 60, 'bottom' => 30,],
+                'legend'          => ['data' => ['成功', '失败']],
+                'series'          => [
+                    [
+                        'name'      => '成功',
+                        'data'      => [10,2,30,4,50,16,7],
+                        'type'      => 'line',
+                        'areaStyle' => [],
+                        'smooth'    => true,
+                        'symbol'    => 'none',
+                    ],
+                    [
+                        'name'      => '失败',
+                        'data'      => [7,6,5,4,3,2,1],
+                        'type'      => 'bar',
+                        'areaStyle' => [],
+                        'smooth'    => true,
+                        'symbol'    => 'none',
+                    ],
+                ],
+            ])
+        ])->id('pie-chart-panel')->set('animations', [
+            'enter' => [
+                'delay'    => 0.1,
+                'duration' => 0.5,
+                'type'     => 'zoomIn',
+            ],
         ]);
     }
 
