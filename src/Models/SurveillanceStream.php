@@ -14,7 +14,7 @@ class SurveillanceStream extends Model
 
     public function rel(): hasOne
     {
-        return $this->hasOne(EnterPriseFacilityDeviceStream::class,'stream_id','id')->with(['enterprise','facility']);
+        return $this->hasOne(EnterpriseFacilityDeviceStream::class,'stream_id','id')->with(['enterprise','facility']);
     }
 
 }

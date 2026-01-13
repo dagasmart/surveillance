@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 /**
  * 设备推拉流模型
  */
-class EnterPriseFacilityDeviceStream extends Model
+class EnterpriseFacilityDeviceStream extends Model
 {
     protected $table = 'biz_enterprise_facility_device_stream';
 
