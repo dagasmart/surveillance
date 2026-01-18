@@ -123,9 +123,9 @@ class SurveillanceController extends AdminController
                     ->className('Panel')
                     ->set('sm',4)
                     ->body([
-                        amis()->Video()->isLive()->src('http://cfss.cc/cdn/hy/11602075.flv'),
+                        amis()->Video()->isLive()->src('https://cfss.cc/cdn/hy/11602075.flv'),
                         amis()->Divider(),
-                        amis()->Video()->isLive()->src('http://cfss.cc/cdn/hy/29465863.flv'),
+                        amis()->Video()->isLive()->src('https://cfss.cc/cdn/hy/29465863.flv'),
                         amis()->Divider(),
                         amis()->Video()->isLive()->src('http://cfss.cc/cdn/hy/11601957.flv'),
                     ]),

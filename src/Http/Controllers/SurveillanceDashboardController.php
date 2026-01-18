@@ -151,7 +151,10 @@ class SurveillanceDashboardController extends AdminController
                             ->isLive()
                             ->videoType('application/x-mpegURL')
                             ->src('https://cfss.cc/cdn/hy/11352898.flv'),
-                        amis()->Video()->isLive()->src('https://cfss.cc/cdn/hy/11352898.flv')
+                        amis()->Video()
+                            ->isLive()
+                            ->videoType('application/x-mpegURL')
+                            ->src('http://112.46.105.20:8009/hls/501/index.m3u8')
                     ]),
                 amis()->Panel()->title('二楼4路')
                     ->className('Panel')

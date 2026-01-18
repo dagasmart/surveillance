@@ -4,7 +4,6 @@ namespace DagaSmart\Surveillance\Models;
 
 use DagaSmart\BizAdmin\Models\BaseModel;
 use DagaSmart\BizAdmin\Scopes\ActiveScope;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  *基座模型
