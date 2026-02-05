@@ -118,25 +118,66 @@ class SurveillanceStreamController extends AdminController
 
     public function detail(): Form
     {
-        return $this->baseDetail()->columnCount(3)->body([
-            amis()->TextControl('id', 'ID')->static(),
-            amis()->TextControl('title', '名称')->static(),
-            amis()->TextControl('agree', '协议（源）')->static(),
-            amis()->TextControl('remote', '输入流（源）')->static(),
-            amis()->TextControl('name', '输出流名称')->static(),
-            amis()->TextControl('url', '输出流地址')->static(),
-            amis()->TextControl('fix', '输出流格式')->static(),
-            amis()->TextControl('sip', '分流内网IP')->static(),
-            amis()->TextControl('port', '分流公网端口')->static(),
-            amis()->TextControl('piont', '经纬度')->static(),
-            amis()->TextControl('sort', '排序[0-255]')->static(),
-            amis()->TextControl('state', '状态：0禁用，1启用')->static(),
-            amis()->TextControl('hot', '热点：1是， 0否')->static(),
-            amis()->TextControl('top', '置顶：1是，0否')->static(),
-            amis()->TextControl('online', '1在线，0离线')->static(),
-            amis()->TextControl('created_at', admin_trans('admin.created_at'))->static(),
-            amis()->TextControl('updated_at', admin_trans('admin.updated_at'))->static(),
-        ])->disabled();
+        return $this->baseDetail()->mode('horizontal')->body([
+            amis()->SelectControl('enterprise_id', '机构单位')
+                ->options($this->service->getEnterpriseAll())
+                ->value('${rel.enterprise_id}')
+                ->searchable()
+                ->clearable()
+                ->required(),
+            amis()->TreeSelectControl('facility_id', '主体位置')
+                ->source(admin_url('biz/enterprise/${enterprise_id||0}/facility/options'))
+                ->options($this->service->facilityOptions())
+                ->value('${rel.facility_id}')
+                ->disabledOn('${!enterprise_id}')
+                ->onlyLeaf(false)
+                ->searchable()
+                ->clearable()
+                ->required(),
+            amis()->TreeSelectControl('device_id', '监控设备')
+                ->source(admin_url('biz/enterprise/${enterprise_id||0}/facility/${facility_id||0}/device/surveillance/options'))
+                ->options($this->service->deviceOptions())
+                ->value('${rel.device_id}')
+                ->disabledOn('${!facility_id}')
+                ->onlyLeaf(false)
+                ->searchable()
+                ->clearable()
+                ->required(),
+            amis()->TextControl('remote', '输入流(源)地址'),
+            amis()->GroupControl()->body([
+                amis()->Video()
+                    ->isLive()
+                    ->videoType('video/x-flv')
+                    ->src('http://cfss.cc/cdn/hy/11602075.flv')
+                    ->static()
+                    ->className('border-solid border-1 border-color-[var(--colors-brand-5)] rounded-xl shadow-lg overflow-hidden clear-none'),
+            ])->visible(),
+            amis()->SelectControl('fix', '输出流格式')
+                ->options([['label' => 'video/x-flv', 'value' => 'flv'], ['label' => 'application/x-mpegURL-hls(m3u8)', 'value' => 'm3u8']]),
+            amis()->TextControl('sip', '分流内网IP'),
+            amis()->NumberControl('port', '分流公网端口'),
+            amis()->TextControl('piont', '设备位置经纬度'),
+            amis()->NumberControl('sort', '排序[0-255]'),
+            amis()->SwitchControl('state', '状态')->onText('上线')->offText('下线')->value(1)->disabled()->static(false),
+            amis()->SwitchControl('hot', '热点')->onText('是')->offText('否')->disabled()->static(false),
+            amis()->SwitchControl('top', '置顶')->onText('是')->offText('否')->disabled()->static(false),
+            amis()->GroupControl('online', '设备状态')->body([
+                amis()->Status()
+                    ->source([
+                        '0' => [
+                            'label' => '已离线',
+                            'icon' => 'fail',
+                            'color' => 'red'
+                        ],
+                        '1' => [
+                            'label' => '运行中',
+                            'icon' => 'success',
+                            'color' => 'var(--colors-brand-5)'
+                        ]
+                    ])->value(1)
+            ])
+                ->visible(),
+        ])->static();
     }
 
     public function screen(): Page
