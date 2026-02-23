@@ -116,18 +116,18 @@ class SurveillanceController extends AdminController
                         amis()->Video()
                             ->isLive()
                             ->videoType('application/x-mpegURL')
-                            ->src('https://cfss.cc/cdn/hy/11352898.flv'),
-                        amis()->Video()->isLive()->src('https://cfss.cc/cdn/hy/11352898.flv')
+                            ->src('https://bp-resource-dfl.bestv.cn/148/3/video.m3u8'),
+                        amis()->Video()->isLive()->src('https://event.pull.hebtv.com:443/live/live101.m3u8')
                     ]),
                 amis()->Panel()->title('二楼4路')
                     ->className('Panel')
                     ->set('sm',4)
                     ->body([
-                        amis()->Video()->isLive()->src('https://cfss.cc/cdn/hy/11602075.flv'),
+                        amis()->Video()->isLive()->src('http://livealone302.iqilu.com/iqilu/yspd.m3u8'),
                         amis()->Divider(),
-                        amis()->Video()->isLive()->src('https://cfss.cc/cdn/hy/29465863.flv'),
+                        amis()->Video()->isLive()->src('http://bp-resource-dfl.bestv.cn/148/3/video.m3u8'),
                         amis()->Divider(),
-                        amis()->Video()->isLive()->src('http://cfss.cc/cdn/hy/11601957.flv'),
+                        amis()->Video()->isLive()->src('http://pull-hls-f26.douyincdn.com/media/stream-695365261486195372.m3u8?arch_hrchy=w1&exp_hrchy=w1&expire=69a51f8d&major_anchor_level=common&sign=00fe806b764fde7b38cb69969b504b17&t_id=037-20260223132636F024807154720635E0DC-xeIubJ'),
                     ]),
             ]),
         ]);
