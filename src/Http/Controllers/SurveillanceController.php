@@ -116,18 +116,18 @@ class SurveillanceController extends AdminController
                         amis()->Video()
                             ->isLive()
                             ->videoType('application/x-mpegURL')
-                            ->src('https://cfss.cc/cdn/hy/11352898.flv'),
-                        amis()->Video()->isLive()->src('https://cfss.cc/cdn/hy/11352898.flv')
+                            ->src('http://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8'),
+                        amis()->Video()->isLive()->src('https://yylunbo.ottiptv.cc/yy/1354926655')
                     ]),
                 amis()->Panel()->title('二楼4路')
                     ->className('Panel')
                     ->set('sm',4)
                     ->body([
-                        amis()->Video()->isLive()->src('https://cfss.cc/cdn/hy/11602075.flv'),
+                        amis()->Video()->isLive()->src('http://gctxyc.liveplay.myqcloud.com/gc/xjtcdhsz_1/index.m3u8'),
                         amis()->Divider(),
-                        amis()->Video()->isLive()->src('https://cfss.cc/cdn/hy/29465863.flv'),
+                        amis()->Video()->isLive()->src('http://jsmov2.a.yximgs.com/bs3/video-hls/5203346449046555193_hlsb.m3u8'),
                         amis()->Divider(),
-                        amis()->Video()->isLive()->src('http://cfss.cc/cdn/hy/11601957.flv'),
+                        amis()->Video()->isLive()->src('https://gcalic.v.myalicdn.com/gc/djd01_1/index.m3u8'),
                     ]),
             ]),
         ]);
