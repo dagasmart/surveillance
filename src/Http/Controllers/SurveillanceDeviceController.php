@@ -8,8 +8,6 @@ use DagaSmart\BizAdmin\Renderers\Panel;
 use DagaSmart\BizAdmin\Support\Cores\AdminPipeline;
 use DagaSmart\Organization\Enums\Enum;
 use DagaSmart\Surveillance\Services\SurveillanceDeviceService;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\JsonResponse;
 
 class SurveillanceDeviceController extends AdminController
 {
@@ -20,8 +18,8 @@ class SurveillanceDeviceController extends AdminController
         $crud = $this->baseCRUD()
             ->filterTogglable(false)
             ->headerToolbar([
-                $this->createButton('dialog',250),
-                ...$this->baseHeaderToolBar()
+                $this->createButton('dialog', 250),
+                ...$this->baseHeaderToolBar(),
             ])
             ->autoGenerateFilter()
             ->affixHeader()
@@ -31,7 +29,7 @@ class SurveillanceDeviceController extends AdminController
             ->columns([
                 amis()->TableColumn('id', 'ID')
                     ->sortable()
-                    ->set('fixed','left'),
+                    ->set('fixed', 'left'),
                 amis()->TableColumn('rel.enterprise.enterprise_name', '机构单位')
                     ->searchable([
                         'name' => 'enterprise_id',
@@ -50,32 +48,32 @@ class SurveillanceDeviceController extends AdminController
                     ])
                     ->width(200),
                 amis()->TableColumn('device_name', '设备名称')->width(200),
-                amis()->TableColumn('device_sn','设备编号')
+                amis()->TableColumn('device_sn', '设备编号')
                     ->searchable([
                         'name' => 'device_sn',
                         'type' => 'input-text',
                     ])
                     ->width(150),
-                amis()->TableColumn('state','状态')
-                    ->set('type','switch')
+                amis()->TableColumn('state', '状态')
+                    ->set('type', 'switch')
                     ->set('onText', '上线')
                     ->set('offText', '下线'),
-                amis()->TableColumn('sort','排序'),
+                amis()->TableColumn('sort', '排序'),
                 amis()->TableColumn('updated_at', '更新时间')
                     ->type('datetime')
                     ->sortable()
                     ->width(150),
                 $this->rowActions([
                     amis()->Operation()->label(admin_trans('admin.actions'))->buttons([
-                        $this->rowShowButton(true,250),
+                        $this->rowShowButton(true, 250),
                         $this->rowSetAction('drawer', 'auto'),
-                        $this->rowEditButton(true,250),
+                        $this->rowEditButton(true, 250),
                         $this->rowDeleteButton(),
-                    ])
+                    ]),
                 ])
-                ->set('align','center')
-                ->set('fixed','right')
-                ->set('width',180)
+                    ->set('align', 'center')
+                    ->set('fixed', 'right')
+                    ->set('width', 180),
             ]);
 
         return amis()->Page()->body([
@@ -120,7 +118,7 @@ class SurveillanceDeviceController extends AdminController
                 ->placeholder('设备型号，如ET293')
                 ->clearable()
                 ->required(),
-            amis()->InputGroupControl('device_sn','设备编号')->body([
+            amis()->InputGroupControl('device_sn', '设备编号')->body([
                 amis()->TextControl('device_sn', '设备编号')
                     ->placeholder('请填写设备编号，如sn')
                     ->clearable()
@@ -133,7 +131,7 @@ class SurveillanceDeviceController extends AdminController
                 ->max(100)
                 ->size('xs')
                 ->value(10),
-            amis()->SwitchControl('state','状态')
+            amis()->SwitchControl('state', '状态')
                 ->onText('上线')
                 ->offText('下线')
                 ->value(true),
@@ -143,7 +141,7 @@ class SurveillanceDeviceController extends AdminController
     public function detail(): Form
     {
         return $this->baseDetail()->body([
-            amis()->StaticExactControl('id','ID')->visibleOn('${id}'),
+            amis()->StaticExactControl('id', 'ID')->visibleOn('${id}'),
             amis()->SelectControl('enterprise_id', '机构单位')
                 ->options($this->service->getEnterpriseAll())
                 ->value('${rel.school.id}')
@@ -168,13 +166,13 @@ class SurveillanceDeviceController extends AdminController
             amis()->TextControl('device_model', '设备型号')
                 ->placeholder('设备型号，如ET293')
                 ->clearable(),
-//            amis()->TextControl('device_model', '设备型号')
-//                ->clearable(),
+            //            amis()->TextControl('device_model', '设备型号')
+            //                ->clearable(),
             amis()->TextControl('device_sn', '设备编号')
                 ->placeholder('请填写设备编号，如sn')
                 ->clearable()
                 ->required(),
-            amis()->SelectControl('device_pos','安装位置')
+            amis()->SelectControl('device_pos', '安装位置')
                 ->options(Enum::DevicePos)
                 ->placeholder('安装位置')
                 ->required(),
@@ -190,7 +188,7 @@ class SurveillanceDeviceController extends AdminController
                 ->max(100)
                 ->size('xs')
                 ->value(10),
-            amis()->SwitchControl('state','状态')
+            amis()->SwitchControl('state', '状态')
                 ->onText('开启')
                 ->offText('禁用')
                 ->value(true)
@@ -204,10 +202,9 @@ class SurveillanceDeviceController extends AdminController
         return $this->service->options();
     }
 
-
     protected function rowSetAction(bool|string $dialog = false, string $dialogSize = 'md', string $title = '')
     {
-        $title  = $title ?: '设置';
+        $title = $title ?: '设置';
         $action = amis()->LinkAction()->link($this->getEditPath());
 
         if ($dialog) {
@@ -218,7 +215,7 @@ class SurveillanceDeviceController extends AdminController
 
             if ($dialog === 'drawer') {
                 $action = amis()->DrawerAction()->drawer(
-                    amis()->Drawer()->closeOnEsc()->closeOnOutside()->title('【<font color="orangered">${device_name}</font>】' .$title)->body($form)->size($dialogSize)
+                    amis()->Drawer()->closeOnEsc()->closeOnOutside()->title('【<b class=text-danger>${device_name}</b>】'.$title)->body($form)->size($dialogSize)
                 );
             } else {
                 $action = amis()->DialogAction()->dialog(
@@ -244,7 +241,7 @@ class SurveillanceDeviceController extends AdminController
                 ])
                 ->body('提示：请确保网络环境可以正常访问'),
             amis()->Tabs()->tabsMode('line')->tabs([
-                //操作权限
+                // 操作权限
                 amis()->Tab()->title('基本信息')->icon('menu')->body([
                     amis()->StaticExactControl()
                         ->label('ID')
@@ -263,9 +260,9 @@ class SurveillanceDeviceController extends AdminController
                         ->label('状态')
                         ->onText('开启')
                         ->offText('禁用')
-                        ->disabled()
+                        ->disabled(),
                 ]),
-                //数据权限
+                // 数据权限
                 amis()->Tab()->title('数据权限')->icon('menu')->body([
                     amis()->CheckboxesControl('auth_data', '可授权数据')
                         ->source('system/admin_permissions/1000/data/option?route=')
@@ -274,63 +271,60 @@ class SurveillanceDeviceController extends AdminController
                         ->checkAll()
                         ->inline(false)
                         ->joinValues()
-                        ->columnsCount(array_merge([1],array_fill(0, 300, 2)))
+                        ->columnsCount(array_merge([1], array_fill(0, 300, 2)))
                         ->labelClassName(['w-28' => true])
-                        ->options()
+                        ->options(),
 
-                ])
+                ]),
             ]),
 
         ]);
     }
-
 
     public function barChart(): Panel
     {
         return amis()->Panel()->className('w-full')->body([
             amis()->Chart()->height(250)->config([
                 'backgroundColor' => '',
-                'title'           => [
+                'title' => [
                     'text' => '任务汇总统计',
-                    'subtext' => '统计图'
+                    'subtext' => '统计图',
                 ],
-                'tooltip'         => ['trigger' => 'axis'],
-                'legend'          => ['data' => ['最高气温', '最低气温']],
-                'xAxis'           => [
-                    'type'        => 'category',
+                'tooltip' => ['trigger' => 'axis'],
+                'legend' => ['data' => ['最高气温', '最低气温']],
+                'xAxis' => [
+                    'type' => 'category',
                     'boundaryGap' => false,
-                    'data'        => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    'data' => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                 ],
-                'yAxis'           => ['type' => 'value'],
-                'grid'            => ['left' => '7%', 'right' => '3%', 'top' => 60, 'bottom' => 30,],
-                'legend'          => ['data' => ['成功', '失败']],
-                'series'          => [
+                'yAxis' => ['type' => 'value'],
+                'grid' => ['left' => '7%', 'right' => '3%', 'top' => 60, 'bottom' => 30],
+                'legend' => ['data' => ['成功', '失败']],
+                'series' => [
                     [
-                        'name'      => '成功',
-                        'data'      => [10,2,30,4,50,16,7],
-                        'type'      => 'line',
+                        'name' => '成功',
+                        'data' => [10, 2, 30, 4, 50, 16, 7],
+                        'type' => 'line',
                         'areaStyle' => [],
-                        'smooth'    => true,
-                        'symbol'    => 'none',
+                        'smooth' => true,
+                        'symbol' => 'none',
                     ],
                     [
-                        'name'      => '失败',
-                        'data'      => [7,6,5,4,3,2,1],
-                        'type'      => 'bar',
+                        'name' => '失败',
+                        'data' => [7, 6, 5, 4, 3, 2, 1],
+                        'type' => 'bar',
                         'areaStyle' => [],
-                        'smooth'    => true,
-                        'symbol'    => 'none',
+                        'smooth' => true,
+                        'symbol' => 'none',
                     ],
                 ],
-            ])
+            ]),
         ])->id('pie-chart-panel')->set('animations', [
             'enter' => [
-                'delay'    => 0.1,
+                'delay' => 0.1,
                 'duration' => 0.5,
-                'type'     => 'zoomIn',
+                'type' => 'zoomIn',
             ],
         ]);
     }
-
-
 }
