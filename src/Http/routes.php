@@ -14,7 +14,7 @@ Route::get('surveillance', [Controllers\SurveillanceController::class, 'index'])
 //Route::get('surveillance', [Controllers\SurveillanceController::class, 'index'])->withoutMiddleware([Authenticate::class, Permission::class]);
 
 Route::group([
-    'prefix' => 'biz',
+    'prefix' => 'extension',
     'middleware' => [Middleware\CheckPackageMiddleware::class],
 ], function (Router $router) {
     // 监控设备

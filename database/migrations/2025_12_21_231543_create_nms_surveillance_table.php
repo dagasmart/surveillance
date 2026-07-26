@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
-    protected $connection = 'biz';
+    protected $connection = 'extension';
 
     private string $table = 'nms_surveillance';
 

@@ -62,7 +62,7 @@ class SurveillanceDashboardController extends AdminController
                 ->clearable()
                 ->required(),
             amis()->TreeSelectControl('facility_id', '主体位置')
-                ->source(admin_url('biz/enterprise/${enterprise_id||0}/facility/options'))
+                ->source(admin_url('extension/enterprise/${enterprise_id||0}/facility/options'))
                 ->options($this->service->facilityOptions())
                 ->value('${rel.facility_id}')
                 ->disabledOn('${!enterprise_id}')
@@ -71,7 +71,7 @@ class SurveillanceDashboardController extends AdminController
                 ->clearable()
                 ->required(),
             amis()->TreeSelectControl('device_id', '监控设备')
-                ->source(admin_url('biz/enterprise/${enterprise_id||0}/facility/${facility_id||0}/device/surveillance/options'))
+                ->source(admin_url('extension/enterprise/${enterprise_id||0}/facility/${facility_id||0}/device/surveillance/options'))
                 ->options($this->service->deviceOptions())
                 ->value('${rel.device_id}')
                 ->disabledOn('${!facility_id}')

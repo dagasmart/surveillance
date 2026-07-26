@@ -14,28 +14,28 @@ class SurveillanceServiceProvider extends ServiceProvider
         [
             'parent' => NULL,
             'title' => '智能监控',
-            'url' => '/biz/surveillance',
+            'url' => '/extension/surveillance',
             'url_type' => 1,
             'icon' => 'icon-park-outline:surveillance-cameras-one',
         ],
         [
             'parent' => '智能监控',
             'title' => '监控设备',
-            'url' => '/biz/surveillance/device',
+            'url' => '/extension/surveillance/device',
             'url_type' => 1,
             'icon' => 'icon-park-outline:surveillance-cameras-two',
         ],
         [
             'parent' => '智能监控',
             'title' => '推流转码',
-            'url' => '/biz/surveillance/stream',
+            'url' => '/extension/surveillance/stream',
             'url_type' => 1,
             'icon' => 'fluent:video-switch-24-regular',
         ],
         [
             'parent' => '智能监控',
             'title' => '监控展板',
-            'url' => '/biz/surveillance/screen',
+            'url' => '/extension/surveillance/screen',
             'url_type' => 1,
             'icon' => 'simple-line-icons:camrecorder',
         ]
