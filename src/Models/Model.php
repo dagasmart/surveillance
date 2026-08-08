@@ -3,7 +3,6 @@
 namespace DagaSmart\Surveillance\Models;
 
 use DagaSmart\BizAdmin\Models\BaseModel;
-use DagaSmart\BizAdmin\Scopes\ActiveScope;
 
 /**
  *基座模型
